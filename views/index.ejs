@@ -9,34 +9,58 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+
+        //create an array of styles
+        var AllCrime = [
+        {
+          stylers: [
+            { hue: "#00ffe6" },
+            { saturation: -20 }
+        ]
+      },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+            { lightness: 100 },
+            { visibility: "simplified" }
+        ]
+      },{
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+            { visibility: "off" }
+          ]
+        }
+      ];
+
+        // Create a new StyledMapType object, passing it the array of styles,
+        // as well as the name to be displayed on the map type control.
+        var styledMap = new google.maps.StyledMapType(AllCrime,
+            {name: "General crime"});
+
         var myLatlng = new google.maps.LatLng(53.0395844,-2.8241606);
+
         var mapOptions = {
-          center: { lat: 53.0395844, lng: -2.8241606},
           zoom: 7,
-          // loading map layer all crime?
-            //mapTypeId: google.maps.MapTypeId.HYBRID
+          center: new google.maps.LatLng(53.0395844, -2.8241606), //{ lat: 53.0395844, lng: -2.8241606},
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+          }
         };
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
 
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
             '<div id="bodyContent">'+
-            '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-            'sandstone rock formation in the southern part of the '+
-            'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-            'south west of the nearest large town, Alice Springs; 450&#160;km '+
-            '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-            'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-            'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-            'Aboriginal people of the area. It has many springs, waterholes, '+
-            'rock caves and ancient paintings. Uluru is listed as a World '+
-            'Heritage Site.</p>'+
-            '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            '<p><b>Uluru</b>…</p>'+
+            '<a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
             'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '(last visited June 22, 2009).</p>'+
             '</div>'+
             '</div>';
 
@@ -53,9 +77,10 @@
           title:"Drag me!"
         });
 
+
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
-        })
+        });
 
       }
       google.maps.event.addDomListener(window, 'load', initialize);
@@ -64,7 +89,9 @@
   <body>
 <div style="color:#FFFFFF">
   <h1><%= title %></h1>
-  <p style="font-size:25px">Welcome to <%= title %> your one and only platform for finding crime spots and book getaway cars</p>
+  <p style="font-size:25px">Welcome to <%= title %>, your one and only platform for finding those crime hotspots, and booking a cab to escape the cops!</p>
+  <p style="font-size:15px">No cats were harmed in the making of this service!</p>
+  <p style="font-size:10px">Except Mrs Norris. She kinda derserved it</p>
   <body bgcolor="#b3d1ff">
 </div>
 <div id="map-canvas"></div>
