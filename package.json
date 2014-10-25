@@ -1,19 +1,12 @@
 {
-  "name": "BrumHack",
-  "version": "1.0.0",
-  "description": "",
-  "main": "example.js",
-  "dependencies": {
-    "express": "^4.10.0"
-  },
-  "devDependencies": {},
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https//github.com/Bericender/BrumHack"
-  },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "express": "3.4.8",
+    "jade": "*"
+  }
 }
