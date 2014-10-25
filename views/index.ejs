@@ -9,15 +9,49 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+
+        //create an array of styles
+        var styles = [
+        {
+          stylers: [
+            { hue: "#00ffe6" },
+            { saturation: -20 }
+        ]
+      },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+            { lightness: 100 },
+            { visibility: "simplified" }
+        ]
+      },{
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+            { visibility: "off" }
+          ]
+        }
+      ];
+
+        // Create a new StyledMapType object, passing it the array of styles,
+        // as well as the name to be displayed on the map type control.
+        var styledMap = new google.maps.StyledMapType(styles,
+            {name: "General crime"});
+
         var myLatlng = new google.maps.LatLng(53.0395844,-2.8241606);
+
         var mapOptions = {
-          center: { lat: 53.0395844, lng: -2.8241606},
           zoom: 7,
-          // loading map layer all crime?
-            //mapTypeId: google.maps.MapTypeId.HYBRID
+          center: new google.maps.LatLng(53.0395844, -2.8241606), //{ lat: 53.0395844, lng: -2.8241606},
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+          }
         };
 
         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
 
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
@@ -53,9 +87,10 @@
           title:"Drag me!"
         });
 
+
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
-        })
+        });
 
       }
       google.maps.event.addDomListener(window, 'load', initialize);
