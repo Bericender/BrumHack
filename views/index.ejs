@@ -9,13 +9,21 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+        var myLatlng = new google.maps.LatLng(53.0395844,-2.8241606);
         var mapOptions = {
           center: { lat: 53.0395844, lng: -2.8241606},
           zoom: 7
         };
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        //draggable marker on the map
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          map: map,
+          draggable:true,
+          title:"Drag me!"
+        });
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
