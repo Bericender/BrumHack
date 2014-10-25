@@ -7,8 +7,30 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhMqwaEiielzDt0nwIRSKVk6vsthRjX5I">
     </script>
+    //inserted this
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
+    </script>
+
     <script type="text/javascript">
       function initialize() {
+
+        //crime data
+        var heatmapData = [
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606),
+          new google.maps.LatLng(53.0395844,-2.8241606)
+        ];
 
         //create an array of styles
         var AllCrime = [
@@ -38,21 +60,36 @@
         var styledMap = new google.maps.StyledMapType(AllCrime,
             {name: "General crime"});
 
-        var myLatlng = new google.maps.LatLng(53.0395844,-2.8241606);
+        var myLatlng = new google.maps.LatLng(52.447522,-1.9339875);
 
-        var mapOptions = {
-          zoom: 7,
-          center: new google.maps.LatLng(53.0395844, -2.8241606), //{ lat: 53.0395844, lng: -2.8241606},
+        /* var mapOptions = {
+
           mapTypeControlOptions: {
             mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
           }
         };
 
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
+        ;
         map.mapTypes.set('map_style', styledMap);
         map.setMapTypeId('map_style');
 
+            thingie that worked is below
+        */
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: myLatlng,
+          zoom: 7,
+        });
+
+
+        //draw heatmap
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+          data: heatmapData
+        });
+        heatmap.setMap(map);
+
+        //text of info window
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
@@ -77,7 +114,7 @@
           title:"Drag me!"
         });
 
-
+        //click to open marker
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
         });
@@ -92,6 +129,7 @@
   <p style="font-size:25px">Welcome to <%= title %>, your one and only platform for finding those crime hotspots, and booking a cab to escape the cops!</p>
   <p style="font-size:15px">No cats were harmed in the making of this service!</p>
   <p style="font-size:10px">Except Mrs Norris. She kinda derserved it</p>
+  <p><a href="/mapapi">Link to second page</a><p>
   <body bgcolor="#b3d1ff">
 </div>
 <div id="map-canvas"></div>
