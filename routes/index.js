@@ -27,7 +27,7 @@ exports.index = function(req, res){
 //  });
 
 
-  var dataArray = fs.readFileSync(__dirname + '/../public/smalldata.json', 'utf8');
+  var dataArray = fs.readFileSync(__dirname + '/../public/largedata.json', 'utf8');
 
   //console.log(dataArray);
 
