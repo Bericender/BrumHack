@@ -3,6 +3,7 @@
 * GET home page.
 */
 var request = require('request');
+var braintree = require('braintree');
 var fs = require('fs');
 
 exports.index = function(req, res){
@@ -32,7 +33,7 @@ exports.index = function(req, res){
   //
   //     }
 
-  /*var gateway = braintree.connect({
+  var gateway = braintree.connect({
     environment: braintree.Environment.Sandbox,
     merchantId: "dmy5xrg7yndrzqyh",
     publicKey: "39jg4jmwpgrp76qn",
@@ -48,7 +49,7 @@ exports.index = function(req, res){
   app.post("/purchases", function (req, res) {
     var nonce = req.body.payment_method_nonce;
     // Use payment method nonce here
-  }); */
+  });
 
 
   var dataArray = fs.readFileSync(__dirname + '/../public/largedata.json', 'utf8');

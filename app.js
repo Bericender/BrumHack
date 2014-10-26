@@ -32,6 +32,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.post('/checkout', routes.checkout);
 app.get('/users', user.list);
 app.get('/mapapi', function (req, res) {
   res.render('mapapi');
