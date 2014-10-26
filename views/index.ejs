@@ -7,7 +7,6 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhMqwaEiielzDt0nwIRSKVk6vsthRjX5I">
     </script>
-    //inserted this
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
     </script>
@@ -16,21 +15,18 @@
       function initialize() {
 
         //crime data
-        var heatmapData = [
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606),
-          new google.maps.LatLng(53.0395844,-2.8241606)
-        ];
+
+
+      var dataArray = <%- dataArray %>;
+      console.log(dataArray);
+
+      var heatmapData = [];
+      for(var i = 0; i < dataArray.length; i++){
+        heatmapData.push(new google.maps.LatLng( dataArray[i].location.latitude, dataArray[i].location.longitude));
+      }
+      console.log(heatmapData);
+
+
 
         //create an array of styles
         var AllCrime = [
@@ -101,11 +97,24 @@
             '</div>'+
             '</div>';
 
+       //text of info window
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>Uluru</b>…</p>'+
+            '<a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+            'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+            '</div>'+
+            '</div>';
+
         //info window displaying context on button
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
 
+/*
         //draggable marker on the map
         var marker = new google.maps.Marker({
           position: myLatlng,
@@ -117,10 +126,34 @@
         //click to open marker
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map,marker);
-        });
+        }); */
+
+google.maps.event.addListener(map, 'click', function(event) {
+   placeMarker(event.latLng);
+});
+
+function placeMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+
+    if (lastmarker) {
+      lastmarker.setMap(null);
+    }
+
+    lastmarker = marker;
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map,marker);
+    });
+}
 
       }
       google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <script type="text/javascript"
+    src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
     </script>
   </head>
   <body>
