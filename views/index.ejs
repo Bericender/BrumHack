@@ -3,6 +3,7 @@
   <head>
     <style type="text/css">
       html, body, #map-canvas { height:100%; margin: 0; padding: 0;}
+	  h1, p {font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif}
     </style>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhMqwaEiielzDt0nwIRSKVk6vsthRjX5I&libraries=visualization&sensor=true_or_false">
@@ -122,12 +123,11 @@ function placeMarker(location) {
     </script>
   </head>
   <body>
-<div style="color:#FFFFFF">
+<div style="color:#262626">
   <h1><%= title %></h1>
   <p style="font-size:20px">Welcome to <%= title %>, your one and only platform for finding those crime hotspots, and booking a cab to escape the cops!</p>
   <p style="font-size:13px">No cats were harmed in the making of this service!</p>
   <p style="font-size:9px">Except Mrs Norris. She kinda derserved it</p>
-  <p><a href="/mapapi">Link to second page</a><p>
   <body bgcolor="#b3d1ff">
 </div>
 <div id="map-canvas"></div>
