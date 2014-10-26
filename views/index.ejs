@@ -10,11 +10,13 @@
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false">
     </script>
+    <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 
     <script type="text/javascript">
       function initialize() {
 
       var lastmarker = null;
+      var braintree = Braintree.create('MIIBCgKCAQEAvhKlX+dP7hMT2/SK3WQ8TvaN2h13SecQ1GXQ2B5HVoKzyN1XI/tLKHC5/xrmqdhfaaXQbFqugOoNiiz1fWeKdeNWJz7SoFL5FbbmcFELvxSnNqFdRmCN9ESmdgXMhDa90wsDEcoqLMcopEmbpoR0n4pgbIBiR4LScQDj+TCfHLINfJ/fexEI3Ail0Ef99I/0WXyBuLVdNQK+zLcoEPLL89WWCh9duH/Tv5XF+mYulsve/QCnEtYm/eqbqnASsEg/6ApY/lB28/fifzuFZOUFm2zAyOsvklPVT8wifaGtGvOqXKgYIyF64W9oklLayn7SfVQyHZO130HQ+PYOP27lCQIDAQAB');
 
       var dataArray = <%- dataArray %>;
       console.log(dataArray);
@@ -39,14 +41,13 @@
         });
         heatmap.setMap(map);
 
-        //info window displaying context on button
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+
+        var contained = function(inside) {
+          return '<div id="content">' + inside + '</div>';
+        }
 
                 //text of info window
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
+        var siteContent = '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Transporters in your area</h1>'+
             '<div id="bodyContent">'+
@@ -54,26 +55,41 @@
             '<p>Choose from a range of Getaway drivers in the area</p>'+
               '<img src="https://farm8.staticflickr.com/7235/13231481773_ae7804a289_s.jpg" align="left" alt="Christiano" height="75" width="75">'+
               '<p style="font-size:15px">Price £100</p>'+
-              '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Christiano aka "The Viking"</a></p>'+
+              '<p><a data-person="cristiano" href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Christiano aka "The Viking"</a></p>'+
             '<br>'+
               '<img src="https://pbs.twimg.com/profile_images/427936247680483328/-ORMbU8T_400x400.png" align="left" alt="Joe" height="75" width="75">'+
               '<p style="font-size:15px">Price £100</p>'+
-              '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Joe aka "Haskell"</a></p>'+
-            '<br>'+
+              '<p><a data-person="joe" href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Joe aka "Haskell"</a></p>'+
+          /*  '<br>'+
               '<img src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-xap1/t31.0-8/10363475_10152409512798088_7134929937864315280_o.jpg" align="left" alt="Jack" height="75" width="75">'+
               '<p style="font-size:15px">Price £50</p>'+
               '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Jack aka "My little pony"</a></p>'+
-            '</div>'+
+                  */
             '</div>';
+
+        var payContent = '<form id="checkout" method="post" action="/checkout">' +
+              '<div id="siteNotice"></div>' +
+              '<input type="submit" value="Pay $10">' +
+            '</form>';
+
         //info window displaying context on button
         var infowindow = new google.maps.InfoWindow({
-          content: contentString,
+          content: contained(siteContent),
           Width: 800
         });
 
     google.maps.event.addListener(map, 'click', function(event) {
       placeMarker(event.latLng);
     });
+
+    document.onclick = function(e) {
+      if (e.target && e.target.dataset && e.target.dataset.person) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('content').innerHTML = payContent;
+        return 0;
+      }
+    };
 
 function placeMarker(location) {
     var marker = new google.maps.Marker({
