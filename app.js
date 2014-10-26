@@ -4,8 +4,9 @@
  */
 
 var express = require('express');
-var routes = require('./routes')(app);
+var routes = require('./routes');
 var user = require('./routes/user');
+//var checkout = require('./routes/checkout');
 var http = require('http');
 var path = require('path');
 
@@ -32,7 +33,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.post('/checkout', routes.checkout);
+//app.post('/checkout', checkout.checkout);
 app.get('/users', user.list);
 app.get('/mapapi', function (req, res) {
   res.render('mapapi');
