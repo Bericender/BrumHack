@@ -6,7 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "braintree": "^1.20.0",
+    "ejs": "*",
     "express": "3.4.8",
-    "ejs": "*"
+    "request": "^2.46.0"
   }
 }
