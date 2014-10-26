@@ -16,31 +16,28 @@ exports.index = function(req, res){
   //   }
 
 
-  fs.readdir(__dirname+'/../public/2014-08', function (error, files) {
-    if (error) {
-      console.log(error);
-    } else{
-      //console.log(dataArray);
-      //console.log(body) // Print the google web page.
-      console.log(files);
-      var dataArray = [];
-      for (var i = 0; i < files.length; i++){
-      data = fs.readFileSync(__dirname + '/../public/2014-08/' + files[i], 'utf8');
-          //data.toString('utf8', 0, data.length);
-          dataArray.push(data);
-          console.log(data);
+  // fs.readdir(__dirname+'/../public/2014-08', function (error, files) {
+  //   if (error) {
+  //     console.log(error);
+  //   } else{
+  //     //console.log(dataArray);
+  //     //console.log(body) // Print the google web page.
+  //     console.log(files);
+  //     var dataArray = [];
+  //     for (var i = 0; i < files.length; i++){
+  //     data = fs.readFileSync(__dirname + '/../public/2014-08/' + files[i], 'utf8');
+  //         //data.toString('utf8', 0, data.length);
+  //         dataArray.push(data);
+  //         console.log(data);
+  //
+  //     }
 
-      }
-      console.log(dataArray);
+  var dataArray = fs.readFileSync(__dirname + '/../public/largedata.json', 'utf8');
 
-      res.render('index', {
-        dataArray: dataArray,
-        title: "Chilling like a Villain"
-      });
-    }
+  console.log(dataArray);
 
-
-  })
-
-
+  res.render('index', {
+    dataArray: dataArray,
+    title: "Chilling like a Villain"
+  });
 };

@@ -14,68 +14,22 @@
     <script type="text/javascript">
       function initialize() {
 
-        //crime data
-
+      var lastmarker = null;
 
       var dataArray = <%- dataArray %>;
       console.log(dataArray);
 
       var heatmapData = [];
       for(var i = 0; i < dataArray.length; i++){
-        heatmapData.push(new google.maps.LatLng( dataArray[i].location.latitude, dataArray[i].location.longitude));
+        heatmapData.push(new google.maps.LatLng( dataArray[i].latitude, dataArray[i].longitude));
       }
       console.log(heatmapData);
 
-
-
-        //create an array of styles
-        var AllCrime = [
-        {
-          stylers: [
-            { hue: "#00ffe6" },
-            { saturation: -20 }
-        ]
-      },{
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [
-            { lightness: 100 },
-            { visibility: "simplified" }
-        ]
-      },{
-        featureType: "road",
-        elementType: "labels",
-        stylers: [
-            { visibility: "off" }
-          ]
-        }
-      ];
-
-        // Create a new StyledMapType object, passing it the array of styles,
-        // as well as the name to be displayed on the map type control.
-        var styledMap = new google.maps.StyledMapType(AllCrime,
-            {name: "General crime"});
-
         var myLatlng = new google.maps.LatLng(52.447522,-1.9339875);
 
-        /* var mapOptions = {
-
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-          }
-        };
-
-        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
-        ;
-        map.mapTypes.set('map_style', styledMap);
-        map.setMapTypeId('map_style');
-
-            thingie that worked is below
-        */
-
         map = new google.maps.Map(document.getElementById('map-canvas'), {
-          center: myLatlng,
           zoom: 7,
+          center: myLatlng
         });
 
 
@@ -85,57 +39,47 @@
         });
         heatmap.setMap(map);
 
-        //text of info window
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>…</p>'+
-            '<a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '</div>'+
-            '</div>';
-
-       //text of info window
-        var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-            '<div id="bodyContent">'+
-            '<p><b>Uluru</b>…</p>'+
-            '<a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-            'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-            '</div>'+
-            '</div>';
-
         //info window displaying context on button
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
 
-/*
-        //draggable marker on the map
-        var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          draggable:true,
-          title:"Drag me!"
+                //text of info window
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">Transporters in your area</h1>'+
+            '<div id="bodyContent">'+
+
+            '<p>Choose from a range of Getaway drivers in the area</p>'+
+              '<img src="https://farm8.staticflickr.com/7235/13231481773_ae7804a289_s.jpg" align="left" alt="Christiano" height="75" width="75">'+
+              '<p style="font-size:15px">Price £100</p>'+
+              '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Christiano aka "The Viking"</a></p>'+
+            '<br>'+
+              '<img src="https://pbs.twimg.com/profile_images/427936247680483328/-ORMbU8T_400x400.png" align="left" alt="Joe" height="75" width="75">'+
+              '<p style="font-size:15px">Price £100</p>'+
+              '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Joe aka "Haskell"</a></p>'+
+            '<br>'+
+              '<img src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-xap1/t31.0-8/10363475_10152409512798088_7134929937864315280_o.jpg" align="left" alt="Jack" height="75" width="75">'+
+              '<p style="font-size:15px">Price £50</p>'+
+              '<p><a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194" style="font-size: 20px; text-decoration: none">Book Jack aka "My little pony"</a></p>'+
+            '</div>'+
+            '</div>';
+        //info window displaying context on button
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          Width: 800
         });
 
-        //click to open marker
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.open(map,marker);
-        }); */
-
-google.maps.event.addListener(map, 'click', function(event) {
-   placeMarker(event.latLng);
-});
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
 
 function placeMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+        title: 'Book Transporter'
     });
 
     if (lastmarker) {
