@@ -1,8 +1,8 @@
 var gateway = braintree.connect({
   environment: braintree.Environment.Sandbox,
-  merchantId: "dmy5xrg7yndrzqyh",
-  publicKey: "39jg4jmwpgrp76qn",
-  privateKey: "f0db0260c7fbb23d678e689e8f2a7558"
+  merchantId: "Merchant ID",
+  publicKey: "Public Key",
+  privateKey: "Private Key"
   });
 
 gateway.transaction.sale({
