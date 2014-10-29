@@ -5,59 +5,52 @@
       html, body, #map-canvas { height:100%; margin: 0; padding: 0;}
 	  h1, p {font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif}
     </style>
+
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhMqwaEiielzDt0nwIRSKVk6vsthRjX5I&libraries=visualization&sensor=true_or_false">
     </script>
+
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 
     <script type="text/javascript">
-      function initialize() {
 
-     var lastmarker = null;
-/*       var braintree = Braintree.create('MIIBCgKCAQEAvhKlX+dP7hMT2/SK3WQ8TvaN2h13SecQ1GXQ2B5HVoKzyN1XI/tLKHC5/xrmqdhfaaXQbFqugOoNiiz1fWeKdeNWJz7SoFL5FbbmcFELvxSnNqFdRmCN9ESmdgXMhDa90wsDEcoqLMcopEmbpoR0n4pgbIBiR4LScQDj+TCfHLINfJ/fexEI3Ail0Ef99I/0WXyBuLVdNQK+zLcoEPLL89WWCh9duH/Tv5XF+mYulsve/QCnEtYm/eqbqnASsEg/6ApY/lB28/fifzuFZOUFm2zAyOsvklPVT8wifaGtGvOqXKgYIyF64W9oklLayn7SfVQyHZO130HQ+PYOP27lCQIDAQAB');
+function initialize() {
+      var lastmarker = null;
 
-      braintree.setup("eyJ2ZXJzaW9uIjoxLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJhOTBjYjI1OWZjNDExMDdmYzFkODI3N2RiZGE2YjViNDQ5YzcyOTM0ZGZlNTc3MjI4ZDljMjI4NTI2OTJjOWU0fGNyZWF0ZWRfYXQ9MjAxNC0xMC0yNlQwOToxNDoxMC45NTcyMzM2ODYrMDAwMFx1MDAyNm1lcmNoYW50X2lkPWRjcHNweTJicndkanIzcW5cdTAwMjZwdWJsaWNfa2V5PTl3d3J6cWszdnIzdDRuYzgiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwicGF5bWVudEFwcHMiOltdLCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi9jbGllbnRfYXBpIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhdXRoVXJsIjoiaHR0cHM6Ly9hdXRoLnZlbm1vLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhbmFseXRpY3MiOnsidXJsIjoiaHR0cHM6Ly9jbGllbnQtYW5hbHl0aWNzLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20ifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6ZmFsc2UsInBheXBhbEVuYWJsZWQiOnRydWUsInBheXBhbCI6eyJkaXNwbGF5TmFtZSI6IkFjbWUgV2lkZ2V0cywgTHRkLiAoU2FuZGJveCkiLCJjbGllbnRJZCI6bnVsbCwicHJpdmFjeVVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS9wcCIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vdG9zIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiYWxsb3dIdHRwIjp0cnVlLCJlbnZpcm9ubWVudE5vTmV0d29yayI6dHJ1ZSwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwibWVyY2hhbnRBY2NvdW50SWQiOiJzdGNoMm5mZGZ3c3p5dHc1IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2V9", 'dropin', {
-          container: 'dropin'
-      });
-*/
-
-      var dataArray = <%- dataArray %>;
-      //console.log(dataArray);
-
-      var heatmapData = [];
-      for(var i = 0; i < dataArray.length; i++){
-        heatmapData.push(new google.maps.LatLng( dataArray[i].latitude, dataArray[i].longitude));
-      }
-      console.log(heatmapData);
-
-        var myLatlng = new google.maps.LatLng(52.826008, -1.428442);
-
-        map = new google.maps.Map(document.getElementById('map-canvas'), {
+      //setting the center of the map
+      var myLatlng = new google.maps.LatLng(52.826008, -1.428442);
+          map = new google.maps.Map(document.getElementById('map-canvas'), {
           zoom: 9,
           center: myLatlng
-        });
+          });
 
+      //Array for json data of crime info
+      var dataArray = <%- dataArray %>;
+      var heatmapData = [];
+        for(var i = 0; i < dataArray.length; i++){
+          heatmapData.push(new google.maps.LatLng( dataArray[i].latitude, dataArray[i].longitude));
+          }
+        console.log(heatmapData);
 
-        //draw heatmap
-        var heatmap = new google.maps.visualization.HeatmapLayer({
+      //draw heatmap
+      var heatmap = new google.maps.visualization.HeatmapLayer({
           data: heatmapData
-        });
-        heatmap.setMap(map);
+          });
+          heatmap.setMap(map);
 
-
-        var contained = function(inside) {
+      var contained = function(inside) {
           return '<div id="content">' + inside + '</div>';
-        }
+          }
 
-                //text of info window
-        var siteContent = '<div id="siteNotice">'+
+      //text of info window
+      var siteContent = '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Transporters in your area</h1>'+
             '<div id="bodyContent">'+
 
             '<p>Choose from a range of Getaway drivers in the area</p>'+
-              '<img src="https://farm8.staticflickr.com/7235/13231481773_ae7804a289_s.jpg" align="left" alt="Christiano" height="75" width="75">'+
-              '<p style="font-size:15px">Price £110</p>'+
+              '<img src="https://farm8.staticflickr.com/7235/13231481773_ae7804a289_s.jpg" align="left" alt="Cristiano" height="75" width="75">'+
+              '<p style="font-size:15px">Price £100</p>'+
               '<p><a data-person="cristiano" style="font-size: 20px; text-decoration: none">Book Christiano aka "The Viking"</a></p>'+
             '<br>'+
               '<img src="https://pbs.twimg.com/profile_images/427936247680483328/-ORMbU8T_400x400.png" align="left" alt="Joe" height="75" width="75">'+
@@ -70,16 +63,17 @@
             '<br>'+
               '<img src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-xap1/v/t1.0-9/12517_10152498259629355_1354737197834509369_n.jpg?oh=a61e1f7ac55ef336b19d1a531646f24a&oe=54F61ADC&__gda__=1424437141_6bf249c27bd74d0abf2d4e946a5291e6" align="left" alt="Dave" height="75" width="75">'+
               '<p style="font-size:15px">Price £100</p>'+
-              '<p><a data-person="dave" style="font-size: 20px; text-decoration: none">Book Dave aka "#FuckitShipIt"</a></p>'+
+              '<p><a data-person="dave" style="font-size: 20px; text-decoration: none">Book Dave aka "#F***itShipIt"</a></p>'+
             '<br>'+
               '<img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xfp1/v/t1.0-1/c0.2.56.56/p56x56/10388633_10204645243788806_5775514544854029935_n.jpg?oh=9a6654ebebc5ac4772f2e9962734589e&oe=54B61E1C&__gda__=1424303082_c7570a47088363297b6e3e001ddae406" align="left" alt="Dave" height="75" width="75">'+
               '<p style="font-size:15px">Price £60</p>'+
               '<p><a data-person="Greg" style="font-size: 20px; text-decoration: none">Book Greg aka "zeeGerman"</a></p>'+
             '</div>';
 
+        //Braintree payment interface
         var payContent = '<form id="checkout" method="post" action="/checkout">' +
               '<div id="siteNotice"></div>' +
-              '<input type="submit" value="Pay $60">' +
+              '<input type="submit" value="Pay $100">' +
             '</form>';
 
         //info window displaying context on button
@@ -101,36 +95,40 @@
       }
     };
 
-function placeMarker(location) {
+  function placeMarker(location) {
     var marker = new google.maps.Marker({
         position: location,
         map: map,
         title: 'Book Transporter'
-    });
-
+        });
     if (lastmarker) {
       lastmarker.setMap(null);
-    }
-
+      }
     lastmarker = marker;
 
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
     });
+  }
+
 }
 
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'load', initialize);
+    braintree.setup("eyJ2ZXJzaW9uIjoxLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiI1ODZhN2EwYmViZDdmYTk4NTFmYTJkMzJlYTVhYTNiNGExY2I5YzkyMjcwMjhmNjQyYmNmZTNkYjQ3ZDlkN2Q1fGNyZWF0ZWRfYXQ9MjAxNC0xMC0yNlQxMTo0MzoxNS4yMTUzNzU0MzcrMDAwMFx1MDAyNm1lcmNoYW50X2lkPWRjcHNweTJicndkanIzcW5cdTAwMjZwdWJsaWNfa2V5PTl3d3J6cWszdnIzdDRuYzgiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwicGF5bWVudEFwcHMiOltdLCJjbGllbnRBcGlVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi9jbGllbnRfYXBpIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhdXRoVXJsIjoiaHR0cHM6Ly9hdXRoLnZlbm1vLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhbmFseXRpY3MiOnsidXJsIjoiaHR0cHM6Ly9jbGllbnQtYW5hbHl0aWNzLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb20ifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6ZmFsc2UsInBheXBhbEVuYWJsZWQiOnRydWUsInBheXBhbCI6eyJkaXNwbGF5TmFtZSI6IkFjbWUgV2lkZ2V0cywgTHRkLiAoU2FuZGJveCkiLCJjbGllbnRJZCI6bnVsbCwicHJpdmFjeVVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS9wcCIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vdG9zIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiYWxsb3dIdHRwIjp0cnVlLCJlbnZpcm9ubWVudE5vTmV0d29yayI6dHJ1ZSwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwibWVyY2hhbnRBY2NvdW50SWQiOiJzdGNoMm5mZGZ3c3p5dHc1IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2V9", 'dropin', {
+    container: 'siteNotice'
+    });
+
     </script>
   </head>
+
   <body>
-<div style="color:#262626">
-  <h1><%= title %></h1>
-  <p style="font-size:20px">Welcome to <%= title %>, your one and only platform for finding crime hotspots, and booking getaway drivers!</p>
-  <p style="font-size:13px">No cats were harmed in the making of this service!</p>
-  <p style="font-size:9px">Except Mrs Norris. She kinda derserved it</p>
-  <body bgcolor="#b3d1ff">
-</div>
-<div id="map-canvas"></div>
+    <div style="color:#262626">
+      <h1><%= title %></h1>
+      <p style="font-size:20px">Welcome to <%= title %>, your one and only platform for finding crime hotspots, and booking getaway drivers!</p>
+      <p style="font-size:13px">No cats were harmed in the making of this service!</p>
+      <p style="font-size:9px">Except Mrs Norris. She kinda derserved it</p>
+      <body bgcolor="#b3d1ff">
+    </div>
+    <div id="map-canvas"></div>
   </body>
 </html>

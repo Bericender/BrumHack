@@ -37,11 +37,7 @@ app.post('/checkout', checkout.checkout);
 app.get('/users', user.list);
 app.post('/purchases', function(req, res) {
   var nonce = req.body.payment_method_nonce;
-}); /*
-app.get('/mapapi', function (req, res) {
-  res.render('mapapi');
-  console.log('23');
-}) */
+}); 
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
