@@ -27,8 +27,52 @@ function initialize() {
       //Array for json data of crime info
       var dataArray = <%- dataArray %>;
       var heatmapData = [];
+<<<<<<< Updated upstream
         for(var i = 0; i < dataArray.length; i++){
           heatmapData.push(new google.maps.LatLng( dataArray[i].latitude, dataArray[i].longitude));
+=======
+      for(var i = 0; i < dataArray.length; i++){
+        heatmapData.push(new google.maps.LatLng( dataArray[i].latitude, dataArray[i].longitude));
+      }
+      console.log(heatmapData);
+
+
+
+        //create an array of styles
+        var AllCrime = [
+        {
+          stylers: [
+            { hue: "#00ffe6" },
+            { saturation: -20 }
+        ]
+      },{
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+            { lightness: 100 },
+            { visibility: "simplified" }
+        ]
+      },{
+        featureType: "road",
+        elementType: "labels",
+        stylers: [
+            { visibility: "off" }
+          ]
+        }
+      ];
+
+        // Create a new StyledMapType object, passing it the array of styles,
+        // as well as the name to be displayed on the map type control.
+        var styledMap = new google.maps.StyledMapType(AllCrime,
+            {name: "General crime"});
+
+        var myLatlng = new google.maps.LatLng(52.447522,-1.9339875);
+
+        /* var mapOptions = {
+
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+>>>>>>> Stashed changes
           }
         console.log(heatmapData);
 
@@ -42,8 +86,15 @@ function initialize() {
           return '<div id="content">' + inside + '</div>';
           }
 
+<<<<<<< Updated upstream
       //text of info window
       var siteContent = '<div id="siteNotice">'+
+=======
+
+       //text of info window
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+>>>>>>> Stashed changes
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">Transporters in your area</h1>'+
             '<div id="bodyContent">'+
